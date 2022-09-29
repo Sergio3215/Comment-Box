@@ -14,7 +14,7 @@ export async function middleware(req) {
         }
         
         const { payload } = await jwtVerify(token, new TextEncoder().encode(process.env.palabraSecreta));
-        console.log(payload)
+        // console.log(payload)
     }
 
     if(token != undefined && pathName != '/' ){
