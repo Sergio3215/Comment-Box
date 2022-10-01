@@ -1,26 +1,22 @@
 import { useState, useEffect } from "react";
 import Likes from "./Like";
 
-export default function ReadCommentBox() {
+export default function ReadCommentBox(props) {
 
     const [comment, setComment] = useState([]);
-
-    // const handlerClick = async ()=>{
-    //     const ftch = await fetch(`http://localhost:3000/api/addComment?comment=${comment}`);
-    //     const res = await ftch.json();
-
-    //     if(res.success){
-    //         document.querySelector('#comment--Comment').value = "";
-    //     }
-    // }
+    
+    const getComment = async () => {
+        const ftch = await fetch(`/api/getComment`);
+        const res = await ftch.json();
+        setComment(res.commentList);
+    };
     useEffect(() => {
-        const getComment = async () => {
-            const ftch = await fetch(`/api/getComment`);
-            const res = await ftch.json();
-            setComment(res.commentList);
-        };
         getComment();
     }, [])
+
+    useEffect(() => {
+        getComment();
+    }, [props.render])
 
     let style = {
         imageStyle: {
@@ -31,49 +27,56 @@ export default function ReadCommentBox() {
             margin: 5,
             border: "1px solid black",
             borderRadius: "5px",
-            width:"40%",
+            width: "40%",
             textAlign: "center",
             padding: 5,
             marginBottom: 15,
         },
-        user:{
+        user: {
             margin: 5,
             textAlign: "left",
             padding: 5
         },
-        tool:{
+        tool: {
             margin: 5,
             textAlign: "left",
             padding: 5
         },
-        comment:{
+        comment: {
             border: "1px solid black",
             borderRadius: "5px",
-            width:"40%",
-            padding:10+"px",
-            margin:10+"px"
+            padding: 10 + "px",
+            margin: 10 + "px"
         }
     }
     return (
         <div>
 
             {
-                comment.map(com => {
-                    return (
-                        <div style={style.commentListStyle}>
-                            <div style={style.user}>
-                                {com.username}
+                (comment.length > 0) ?
+                    comment.map(com => {
+                        return (
+                            <div style={style.commentListStyle}>
+                                <div style={style.user}>
+                                    {com.username}
+                                    &nbsp; <label>
+                                        {com.date} {com.hours}
+                                    </label>
+                                </div>
+                                <div style={style.comment}>
+                                    {com.comment}
+                                </div>
+                                <div style={style.tool}>
+                                    {<Likes like={com.like} style={style}
+                                    id={com.__id}
+                                    />
+                                    }
+                                </div>
                             </div>
-                            <div style={style.comment}>
-                                {com.comment}
-                            </div>
-                            <div style={style.tool}>
-                                {<Likes like={com.like} style={style} />
-                                }
-                            </div>
-                        </div>
-                    )
-                })
+                        )
+                    })
+                    :
+                    <>No hay comentarios</>
             }
         </div>
     )

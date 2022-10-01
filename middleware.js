@@ -5,21 +5,31 @@ import { URL } from 'next/dist/compiled/@edge-runtime/primitives/url';
 
 // This function can be marked `async` if using `await` inside
 export async function middleware(req) {
-    const token = req.cookies.get('Token');
-    const pathName = req.nextUrl.pathname;
+  const token = req.cookies.get('Token');
+  const pathName = req.nextUrl.pathname;
 
-    if(pathName == '/'){
-        if(token == undefined){
-            return NextResponse.redirect(new URL('/account/login', req.url))
-        }
-        
-        const { payload } = await jwtVerify(token, new TextEncoder().encode(process.env.palabraSecreta));
-        // console.log(payload)
+  if (pathName == '/') {
+    if (token == undefined) {
+      return NextResponse.redirect(new URL('/account/login', req.url))
     }
 
-    if(token != undefined && pathName != '/' ){
-        return NextResponse.redirect(new URL('/', req.url))
+    try {
+      const { payload } = await jwtVerify(token, new TextEncoder().encode(process.env.palabraSecreta));
+
+      if (payload === undefined) {
+
+      }
+
+    } catch (error) {
+      console.log(error); return NextResponse.redirect(new URL('/account/login', req.url))
     }
+
+    // console.log(payload)
+  }
+
+  if (token != undefined && pathName != '/') {
+    return NextResponse.redirect(new URL('/', req.url))
+  }
 
 
   //return NextResponse.redirect(new URL('/about-2', request.url))
@@ -27,5 +37,5 @@ export async function middleware(req) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ['/account/:path*','/']
+  matcher: ['/account/:path*', '/']
 }

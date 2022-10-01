@@ -21,7 +21,8 @@ export default async function handler(req, res) {
             username: account.name,
             comment: comment,
             like:[],
-            reply:[]
+            reply:[],
+            date: new Date()
           });
       
           //Update

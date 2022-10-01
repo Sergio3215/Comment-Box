@@ -10,8 +10,13 @@ export default function CommentBox(props) {
 
         if(res.success){
             document.querySelector('#comment--Comment').value = "";
-            props.onRenderLayout();
         }
+        
+        props.__onRenderLayout();
+    }
+
+    function setTimePost(date){
+        
     }
 
     return (

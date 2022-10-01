@@ -1,40 +1,44 @@
 import { firebase, app, db } from '../../db'
-import { addDoc, updateDoc, doc, collection } from 'firebase/firestore';
+import { getDoc, updateDoc, doc, collection } from 'firebase/firestore';
 const jwt = require('jsonwebtoken');
 
-const createToken = (userToken, secretWord, expiresIn) => {
-    // console.log(userToken);
-    const { __id, email, password, account, name } = userToken;
-    return jwt.sign({ __id, email, name, account, password }, secretWord, { expiresIn });
-}
-
 export default async function handler(req, res) {
-    const { comment } = req.query;
-    const {Token} = req.cookies
+  const { id, like } = req.query;
+  const { Token } = req.cookies
 
-    try {
-        const account = jwt.verify(Token, process.env.palabraSecreta);
-        // console.log(account.__id);
+  try {
+    const account = jwt.verify(Token, process.env.palabraSecreta);
 
-        const docRef = await addDoc(collection(db, "Comments"), {
-            user: account.__id,
-            username: account.name,
-            comment: comment,
-            like:[],
-            reply:[]
-          });
-      
-          //Update
-          const docUpdated = await updateDoc(doc(db, "Comments", docRef.id),{
-            __id:docRef.id
-          })
-        
-        res.json({success:true})
+    const docGetOne = await getDoc(doc(db, "Comments",id));
 
-    } catch (err) {
-        console.log(err)
-        res.json({ data: [], error: err.message, success:false  });
+    let likes = docGetOne.data().like;
+
+    const liked = likes.filter(lk=>lk.id === account.__id);
+
+    if(liked.length < 1){
+      likes.push({
+        name:account.name,
+        id: account.__id,
+        like:  !((like == 'true') ? true : false)
+      })
     }
+    else{
+      likes.filter(lk=>lk.id === account.__id)[0].like = !liked[0].like
+    }
+
+    
+
+    //Update
+    const docUpdated = await updateDoc(doc(db, "Comments", id), {
+      like:likes
+          })
+
+    res.json({ success: true })
+
+  } catch (err) {
+    console.log(err)
+    res.json({ error: err.message, success: false });
+  }
 }
 
 

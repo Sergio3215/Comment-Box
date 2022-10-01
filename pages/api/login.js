@@ -6,8 +6,8 @@ const cookie = require('cookie');
 
 const createToken = (userToken, secretWord, expiresIn) => {
     // console.log(userToken);
-    const { __id, email, password, account, name } = userToken;
-    return jwt.sign({ __id, email, name, account, password }, secretWord, { expiresIn });
+    const { __id, email, password, name } = userToken;
+    return jwt.sign({ __id, email, name, password }, secretWord, { expiresIn });
 }
 
 export default async function handler(req, res) {

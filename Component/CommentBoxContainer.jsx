@@ -7,17 +7,18 @@ export default function CommentBoxContainer() {
     const [render, setRender] = useState(false);
 
     const __onRenderLayout = () => {
-        const rendered = render;
+        const rendered = !render;
         setRender(rendered);
     }
 
     return (
         <>
             <>
-                <CommentBox onRenderLayout={__onRenderLayout}/>
+                <CommentBox __onRenderLayout={__onRenderLayout}/>
             </>
             <>
-                <ReadCommentBox render={render}/>
+                <ReadCommentBox render={render}__onRenderLayout={__onRenderLayout}
+                />
             </>
         </>
     )
