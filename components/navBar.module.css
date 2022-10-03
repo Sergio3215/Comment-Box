@@ -1,0 +1,14 @@
+.btnLogout{
+    position: absolute;
+    right: 0;
+    background-color: darkred;
+    color:white;
+}
+.container{
+    margin:0;
+    padding: 0;
+    border: 1px solid transparent;
+    position: sticky;
+    top:0px;
+    background-color: white;
+}

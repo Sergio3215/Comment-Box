@@ -1,0 +1,20 @@
+button{
+    border:1px solid black;
+    border-radius: 0.2rem;
+    background-color: rgb(138, 43, 226);
+    cursor: pointer;
+    color:white;
+}
+
+button:disabled{
+    border:1px solid grey;
+    cursor: default;
+    background-color: rgb(98, 3, 186);
+    color:rgb(192, 192, 192);
+}
+label{
+    font-size: 15px;
+}
+span{
+    font-size: 22px;
+}

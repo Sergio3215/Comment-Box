@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import CommentBoxContainer from "../Component/CommentBoxContainer";
+import style from '../components/navBar.module.css';
 
 export default function App() {
 
@@ -21,12 +22,12 @@ export default function App() {
         window.location.reload(true);
     }
     return (
-        <>
-            <div>
-                {name}
-                <button onClick={() => logout()}>Desconectarse</button>
+        <div>
+            <div className={style.container}>
+                <span>{name}</span>
+                <button onClick={() => logout()} className={style.btnLogout}>Desconectarse</button>
             </div>
             <CommentBoxContainer />
-        </>
+        </div>
     )
 }
