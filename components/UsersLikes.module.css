@@ -1,0 +1,12 @@
+.bntClose {
+    /* color: white; */
+    /* background-color: red; */
+    color:black;
+    background-color: transparent;
+    border:0;
+    font-size: 125%;
+    position:relative;
+    bottom:80px;
+    left: 45%;
+    cursor:pointer;
+  }

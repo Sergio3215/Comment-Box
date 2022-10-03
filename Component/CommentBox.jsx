@@ -4,33 +4,45 @@ export default function CommentBox(props) {
 
     const [comment, setComment] = useState("");
 
-    const handlerClick = async ()=>{
-        const ftch = await fetch(`http://localhost:3000/api/addComment?comment=${comment}`);
-        const res = await ftch.json();
+    const handlerClick = async () => {
+        if (props.reply === undefined) {
+            const ftch = await fetch(`/api/addComment?comment=${comment}`);
+            const res = await ftch.json();
 
-        if(res.success){
-            document.querySelector('#comment--Comment').value = "";
+            if (res.success) {
+                document.querySelector('#comment--Comment').value = "";
+            }
+            props.__onRenderLayout();
         }
-        
-        props.__onRenderLayout();
-    }
-
-    function setTimePost(date){
-        
+        else {
+            const ftch = await fetch(`/api/updateReply?id=${props.id}&comment=${comment}`);
+            const res = await ftch.json();
+            props.rendered();
+            document.querySelector('#'+props.id).value = "";
+        }
     }
 
     return (
-        <div>
+        <div style={
+            {
+                display: "flex",
+                flexDirection: "column",
+                flexWrap: "nowrap",
+                alignContent: "center",
+                justifyContent: "center",
+                alignItems: "center",
+            }
+        }>
             <div>
-                <h1>Haz tu comentario en esta pagina</h1>
+                {props.children}
             </div>
             <div>
-                <textarea id="comment--Comment" onChange={(e)=>setComment(e.target.value)}>
+                <textarea id={(props.reply === undefined)?"comment--Comment": props.id} onChange={(e) => setComment(e.target.value)}>
                 </textarea>
             </div>
 
             <div>
-                <button disabled={(comment.trim() == "")?true:false} onClick={handlerClick}>Enviar</button>
+                <button disabled={(comment.trim() == "") ? true : false} onClick={handlerClick}>Enviar</button>
             </div>
         </div>
     )

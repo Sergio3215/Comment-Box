@@ -3,11 +3,8 @@
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
   "/api/getLike": "pages/api/getLike.js",
-  "/api/logout": "pages/api/logout.js",
-  "/api/updateLike": "pages/api/updateLike.js",
-  "/account/login": "pages/account/login.js",
-  "/api/login": "pages/api/login.js",
-  "/api/getUser": "pages/api/getUser.js",
-  "/": "pages/index.js",
-  "/api/getComment": "pages/api/getComment.js"
+  "/api/getCommentOne": "pages/api/getCommentOne.js",
+  "/[username]/comment/[idComment]": "pages/[username]/comment/[idComment].js",
+  "/api/updateLikeReply": "pages/api/updateLikeReply.js",
+  "/api/getLikeReply": "pages/api/getLikeReply.js"
 }

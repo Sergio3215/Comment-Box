@@ -22,10 +22,13 @@ export default async function handler(req, res) {
 
         const count = docGetOne.data().like.filter(lk => lk.like == true).length;
 
-        res.json({ likes:confirm, length:count})
+
+        // console.log(docGetOne.data());
+
+        res.json({ likes:confirm, length:count, people: docGetOne.data().like})
 
     } catch (err) {
-        console.log(err)
+        // console.log(err)
         res.json({ data: [], error: err.message, success: false });
     }
 }

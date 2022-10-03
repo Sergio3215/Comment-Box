@@ -25,10 +25,24 @@ export default async function handler(req, res) {
                     likeConfirmed = lk.like;
                 }
             })
+            
+            if(doc.reply.length > 0 & doc.reply != undefined){
+                doc.reply.map(rp=>{
+                    rp.like.map(lk=>{
+                    if(account.__id == lk.id){
+                        likeConfirmed = lk.like;
+                    }
+                })
+                    let dateFirebase = rp.date
+                    rp.like = likeConfirmed;
+                    rp.arrayUsers = [];
+                    rp.date= new Date(dateFirebase.toDate()).toLocaleDateString();
+                    rp.hours= new Date(dateFirebase.toDate()).toLocaleTimeString();
+                })
+            }
 
             let dateFirebase = doc.date
             doc.like = likeConfirmed;
-            doc.reply = [];
             doc.arrayUsers = [];
             doc.date= new Date(dateFirebase.toDate()).toLocaleDateString();
             doc.hours= new Date(dateFirebase.toDate()).toLocaleTimeString();
@@ -37,7 +51,7 @@ export default async function handler(req, res) {
         res.json({commentList})
 
     } catch (err) {
-        console.log(err)
+        // console.log(err)
         res.json({ data: [], error: err.message, success:false  });
     }
 }

@@ -5,40 +5,39 @@ const jwt = require('jsonwebtoken');
 export default async function handler(req, res) {
   const { id, like } = req.query;
   const { Token } = req.cookies
-
   try {
+    console.log("comment")
     const account = jwt.verify(Token, process.env.palabraSecreta);
 
-    const docGetOne = await getDoc(doc(db, "Comments",id));
+    const docGetOne = await getDoc(doc(db, "Comments", id));
 
     let likes = docGetOne.data().like;
+    const liked = likes.filter(lk => lk.id === account.__id);
 
-    const liked = likes.filter(lk=>lk.id === account.__id);
-
-    if(liked.length < 1){
+    if (liked.length < 1) {
       likes.push({
-        name:account.name,
+        name: account.name,
         id: account.__id,
-        like:  !((like == 'true') ? true : false)
+        like: !((like == 'true') ? true : false)
       })
     }
-    else{
-      likes.filter(lk=>lk.id === account.__id)[0].like = !liked[0].like
+    else {
+      likes.filter(lk => lk.id === account.__id)[0].like = !liked[0].like
     }
 
-    
+
 
     //Update
     const docUpdated = await updateDoc(doc(db, "Comments", id), {
-      like:likes
-          })
+      like: likes
+    })
 
     res.json({ success: true })
 
-  } catch (err) {
-    console.log(err)
-    res.json({ error: err.message, success: false });
-  }
+} catch (err) {
+  console.log(err)
+  res.json({ error: err.message, success: false });
+}
 }
 
 

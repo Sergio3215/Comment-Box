@@ -14,11 +14,12 @@ export default function CommentBoxContainer() {
     return (
         <>
             <>
-                <CommentBox __onRenderLayout={__onRenderLayout}/>
+                <CommentBox __onRenderLayout={__onRenderLayout}>
+                    <h1>Haz tu comentario en esta pagina</h1>
+                </CommentBox>
             </>
             <>
-                <ReadCommentBox render={render}__onRenderLayout={__onRenderLayout}
-                />
+                <ReadCommentBox render={render} __onRenderLayout={__onRenderLayout} reply={false}>No hay comentarios</ReadCommentBox>
             </>
         </>
     )
