@@ -8,8 +8,8 @@ export default function App() {
 
     useEffect(() => {
         const getData = async () => {
-            let ftch = await fetch('/api/getUser');
-            let res = await ftch.json();
+            const ftch = await fetch('/api/getUser');
+            const res = await ftch.json();
 
             setName(res.name)
         }

@@ -11,7 +11,7 @@ export default async function handler(req, res) {
 
     const docGetOne = await getDoc(doc(db, "Comments", id));
 
-    let reply = docGetOne.data().reply;
+    const reply = docGetOne.data().reply;
 
     let idReply = 1;
 

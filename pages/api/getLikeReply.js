@@ -12,7 +12,7 @@ export default async function handler(req, res) {
 
         const docGetOne = await getDoc(doc(db, "Comments", id));
 
-        let likes = docGetOne.data().reply;
+        const likes = docGetOne.data().reply;
 
         //console.log(likes.filter(rp=>rp.id == idReply)[0].like.filter(lk => lk.id === account.__id))
 

@@ -7,8 +7,8 @@ export default async function handler(req, res) {
     
     let success = false;
     try {
-      let salt = await bcrypt.genSalt(10)
-      let passwordHashed = await bcrypt.hash(password, salt);
+      const salt = await bcrypt.genSalt(10)
+      const passwordHashed = await bcrypt.hash(password, salt);
 
 
       const collectionDoc = collection(db, "User");

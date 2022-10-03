@@ -21,7 +21,7 @@ export default async function handler(req, res) {
         let dataUser = []
         UserSnapshot.forEach(doc => dataUser = doc.data());
 
-        let comparePass = await bcrypt.compare(password, dataUser.password);
+        const comparePass = await bcrypt.compare(password, dataUser.password);
 
         if (comparePass) {
             const token = createToken(dataUser, process.env.palabraSecreta, '48h');

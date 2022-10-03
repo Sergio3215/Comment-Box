@@ -33,7 +33,7 @@ export default async function handler(req, res) {
                         likeConfirmed = lk.like;
                     }
                 })
-                    let dateFirebase = rp.date
+                    const dateFirebase = rp.date
                     rp.like = likeConfirmed;
                     rp.arrayUsers = [];
                     rp.date= new Date(dateFirebase.toDate()).toLocaleDateString();
@@ -41,7 +41,7 @@ export default async function handler(req, res) {
                 })
             }
 
-            let dateFirebase = doc.date
+            const dateFirebase = doc.date
             doc.like = likeConfirmed;
             doc.arrayUsers = [];
             doc.date= new Date(dateFirebase.toDate()).toLocaleDateString();

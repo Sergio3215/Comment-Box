@@ -11,7 +11,7 @@ export default async function handler(req, res) {
 
     const docGetOne = await getDoc(doc(db, "Comments", id));
 
-    let likes = docGetOne.data().like;
+    const likes = docGetOne.data().like;
     const liked = likes.filter(lk => lk.id === account.__id);
 
     if (liked.length < 1) {

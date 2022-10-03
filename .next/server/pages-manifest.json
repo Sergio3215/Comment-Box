@@ -2,5 +2,11 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/": "pages/index.js"
+  "/": "pages/index.js",
+  "/api/updateLikeReply": "pages/api/updateLikeReply.js",
+  "/api/getLikeReply": "pages/api/getLikeReply.js",
+  "/api/getLike": "pages/api/getLike.js",
+  "/api/getComment": "pages/api/getComment.js",
+  "/api/updateLike": "pages/api/updateLike.js",
+  "/api/getUser": "pages/api/getUser.js"
 }
